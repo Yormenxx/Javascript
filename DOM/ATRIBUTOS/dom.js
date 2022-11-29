@@ -59,9 +59,9 @@ console.log($link-dom.dataset.description)
 
 $link.setAttribute("data-description","Modelo del documento")
 
+console.log($link-dom.dataset.description)
 
-
-
+$link-dom.description = "Entra a una nueva froma de cambiar los valores"
 
 
 
