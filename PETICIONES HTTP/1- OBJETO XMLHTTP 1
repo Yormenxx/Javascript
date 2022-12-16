@@ -1,2 +1,58 @@
+//JSON ES UNA API QUE PODEMOS HACER PETICIONES AJAX
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AJAX</title>
+  </head>
+  <body>
+    <h1 id="title">AJAX</h1>
+    <button id="button">Get Data</button>
+    <ul id="list">
+
+    </ul>
+
+    <script src="scripts.js"></script>
+  </body>
+</html>
 
 
+// con ajax la forma como los recursos son atendidos dentro del servidor y el cliente.
+
+//SI NO SE CARGAN TODOS LOS DATOS NO SE CARGA LA PAGINA
+//LAS PETICIONES A LAS BBDD SE HACEN A TRAVES DE PHP
+
+
+/* Protocolo HTTP: https://es.wikipedia.org/wiki/Protocolo_de_transferencia_de_hipertexto */
+/* Códigos de estado de respuesta HTTP: https://developer.mozilla.org/es/docs/Web/HTTP/Status */
+
+const button = document.getElementById('button')
+
+button.addEventListener('click', () => { ///ESTA FUNCION VA A PERMITIR GUARDAR EL OBJETO QUE RECIBIMOS DE LA PETICION , SU CONVENCION ES XHR
+    let xhr    
+    
+    if (window.XMLHttpRequest){ // EL IF ES PARA SABER SI EL NAVEGADOR SOPORTA LAS PETICIONES
+    
+    xhr = new XMLHttpRequest()
+    
+    }else {
+    
+      xhr = new ActiveXObject("Microsoft.XMLHTTP")
+    
+    } //PARA SABER SI EL NAVEGADOR LO SOPORTA ESCRIBIMOS EN LA CONSOLA  'XMLHttpRequest' in window 
+
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/users') //el metodo open recibe dos parametros, el metodo de la peticion y donde vamos a sacar la informacion 
+
+    xhr.addEventListener('load', (data) => {
+        const dataJSON = JSON.parse(data.target.response)
+
+        const list = document.getElementById('list')
+        for (const userInfo of dataJSON) {
+            const listItem = document.createElement('LI')
+            listItem.textContent = `${userInfo.id} - ${userInfo.name}`
+            list.appendChild(listItem)
+        }
+    })
+
+    xhr.send() // envia los datos
+})
