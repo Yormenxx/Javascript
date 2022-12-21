@@ -1,4 +1,6 @@
-  const $cards = document.querySelector(".cards"),
+  //Las  etiquetas template no se renderizan en el dom
+
+const $cards = document.querySelector(".cards"),
   $template = document.getElementById("template-card").content,
   $fragment = document.createDocumentFragment(),
   cardsContent = [
